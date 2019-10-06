@@ -20,17 +20,16 @@ object RestClient {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-            val moshi = Moshi.Builder().build()
-
             val client = OkHttpClient.Builder()
                 .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                .addNetworkInterceptor(interceptor).build()
+                .addNetworkInterceptor(interceptor)
+                .build()
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
+                .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .client(client)
                 .build()

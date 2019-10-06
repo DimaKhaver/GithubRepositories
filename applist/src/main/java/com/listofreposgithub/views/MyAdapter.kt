@@ -1,4 +1,4 @@
-package com.listofreposgithub
+package com.listofreposgithub.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

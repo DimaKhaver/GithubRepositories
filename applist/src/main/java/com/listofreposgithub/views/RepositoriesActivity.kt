@@ -1,13 +1,15 @@
-package com.listofreposgithub
+package com.listofreposgithub.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.listofreposgithub.R
+import com.listofreposgithub.domain.UserInfoModel
+import com.listofreposgithub.utils.toast
 import com.listofreposgithub.viewmodels.ListOfReposViewModel
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,21 +18,31 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     private val viewModel: ListOfReposViewModel by lazy {
-        val activity = requireNotNull(this) {
-            "You can only access the viewModel after onActivityCreated()"
-        }
-        ViewModelProviders.of(this, ListOfReposViewModel.Factory(activity.application))
+        val activity = requireNotNull(this) { }
+        ViewModelProviders.of(
+            this,
+            ListOfReposViewModel.Factory(activity.application)
+        )
             .get(ListOfReposViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Timber.plant(Timber.DebugTree())
 
         setUpRecyclerViewOptions()
+        setUpAvailableData(viewModel)
+    }
 
-        viewModel.getDataFromInternet()
+    private fun setUpAvailableData(viewModel: ListOfReposViewModel) {
+        viewModel.setUpData(this)
+        viewModel.repositoryData.observe(this, Observer<List<UserInfoModel>> {
+            it?.let {
+                if (it.isNullOrEmpty())
+                    toast("All rsc are empty!")
+            }
+        })
+
     }
 
     private fun setUpRecyclerViewOptions() {
