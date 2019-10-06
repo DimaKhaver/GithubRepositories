@@ -1,0 +1,2 @@
+include ':applist', ':details'
+rootProject.name='GithubRepositories'
