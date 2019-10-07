@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.listofreposgithub.ui.views.RepositoriesFragment">
 
-</LinearLayout>
+    <data>
+        <variable
+            name="isEmpty"
+            type="boolean" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/swipe_layout">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/repositories_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                app:isGone="@{isEmpty}"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="@integer/grid_columns"
+                tools:listitem="@layout/fragment_list_item" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:isGone="@{!isEmpty}"
+            android:text="@string/all_data_empty"
+            android:textAppearance="?attr/textAppearanceHeadline5" />
+
+    </FrameLayout>
+
+</layout>

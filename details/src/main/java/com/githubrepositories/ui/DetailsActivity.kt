@@ -1,8 +1,8 @@
-package com.example.githubrepositories
+package com.githubrepositories.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.listofreposgithub.R
+import androidx.appcompat.app.AppCompatActivity
+import com.githubrepositories.R
 
 class DetailsActivity : AppCompatActivity() {
 

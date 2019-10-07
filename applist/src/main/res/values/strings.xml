@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GithubRepositories</string>
     <string name="title_details">Details</string>
+        <string name="all_data_empty">No connection and Database is empty</string>
 </resources>

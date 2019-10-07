@@ -21,17 +21,20 @@ class ListOfReposViewModel(application: Application) : BaseViewModel<Repositorie
 
     private var _repositoriesData = MutableLiveData<List<UserInfoModel>>()
 
-    override fun setUpData(viewLifecycleOwner: LifecycleOwner) = viewModelScope.launch {
-        userDataRepository.loadData(isNetworkAvailable(getApplication()))
-            .observe(viewLifecycleOwner, Observer<List<UserInfoModel>> {
-            _repositoriesData.value = it
-        })
+    override fun setUpData(viewLifecycleOwner: LifecycleOwner) {
+        val isNetworkAvailable = isNetworkAvailable(getApplication())
+
+        viewModelScope.launch {
+            userDataRepository.run {
+                loadData(isNetworkAvailable)
+            }.also {
+                userDataRepository.loadResponse.observe(viewLifecycleOwner, Observer<List<UserInfoModel>> {
+                    _repositoriesData.value = it
+                })
+            }
+        }
     }
-/*
-    override fun saveDataToDB() = viewModelScope.launch {
-        userDataRepository.saveDataToDB()
-    }
-*/
+
     private fun isNetworkAvailable(context: Context): Boolean {
         val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return if (manager.activeNetworkInfo != null) manager.activeNetworkInfo.isConnectedOrConnecting else false
