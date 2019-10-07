@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.listofreposgithub">
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.githubrepositories">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <dist:module
+        dist:instant="true"
+        dist:onDemand="true"
+        dist:title="module_details">
+        <dist:fusing dist:include="true" />
+    </dist:module>
 
     <application
         android:allowBackup="true">
-        <activity android:name="com.example.githubrepositories.DetailsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name="com.githubrepositories.ui.DetailsActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

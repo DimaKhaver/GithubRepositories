@@ -2,7 +2,7 @@ package com.listofreposgithub.database.utils
 
 import com.listofreposgithub.database.User
 
-val testPlants = arrayListOf(
+val testUsers = arrayListOf(
     User(1, 3434, "login", "url", "id"),
     User(2, 4434, "login", "url", "id"),
     User(3, 3434, "login", "url", "id"),
