@@ -24,21 +24,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
+                android:paddingTop="@dimen/card_bottom_margin"
                 app:isGone="@{isEmpty}"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="@integer/grid_columns"
                 tools:listitem="@layout/fragment_list_item" />
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:text="@string/all_data_empty"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                app:isGone="@{!isEmpty}" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:isGone="@{!isEmpty}"
-            android:text="@string/all_data_empty"
-            android:textAppearance="?attr/textAppearanceHeadline5" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </FrameLayout>
 
